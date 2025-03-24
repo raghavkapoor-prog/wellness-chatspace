@@ -73,7 +73,7 @@ export const articles: Article[] = [
   {
     id: '6',
     title: 'The Truth About Cardio: Benefits Beyond Weight Loss',
-    excerpt: 'Understand how cardiovascular exercise affects your body and mind, and why it's essential even if weight loss isn't your goal.',
+    excerpt: "Understand how cardiovascular exercise affects your body and mind, and why it's essential even if weight loss isn't your goal.",
     category: 'Cardio',
     imageUrl: imageUrls[5],
     readingTime: '6 min read',
@@ -127,7 +127,7 @@ export const journeyPosts = [
   {
     id: 'j2',
     title: '3 Months In: Celebrating Small Victories',
-    content: 'Three months of consistent training has taught me the importance of recognizing small improvements. Here's what I've learned about progress.',
+    content: "Three months of consistent training has taught me the importance of recognizing small improvements. Here's what I've learned about progress.",
     date: 'Apr 22, 2023',
     imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
   },
@@ -141,7 +141,7 @@ export const journeyPosts = [
   {
     id: 'j4',
     title: 'Finding Balance: Integrating Fitness Into Daily Life',
-    content: 'The challenge of balancing work, social life, and fitness is real. Here's how I've managed to make training a sustainable part of my routine.',
+    content: "The challenge of balancing work, social life, and fitness is real. Here's how I've managed to make training a sustainable part of my routine.",
     date: 'Oct 5, 2023',
     imageUrl: 'https://images.unsplash.com/photo-1470468969717-61d5d54fd036?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
   },
