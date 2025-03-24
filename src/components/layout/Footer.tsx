@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Fitness Journey</h3>
+            <h3 className="text-lg font-semibold">Brute-strength</h3>
             <p className="text-muted-foreground text-sm">
               Empowering your path to better health through knowledge and community.
             </p>
@@ -47,7 +47,7 @@ const Footer = () => {
         
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Fitness Journey. All rights reserved.
+            © {currentYear} Brute-strength. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Privacy</a>

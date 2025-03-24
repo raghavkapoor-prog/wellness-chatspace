@@ -32,7 +32,7 @@ const Navbar = () => {
     >
       <div className="container-custom flex items-center justify-between">
         <Link to="/" className="flex items-center">
-          <span className="text-xl font-semibold tracking-tight">Fitness Journey</span>
+          <span className="text-xl font-semibold tracking-tight">Brute-strength</span>
         </Link>
         
         <nav className="hidden md:flex items-center space-x-8">
