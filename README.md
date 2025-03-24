@@ -3,11 +3,10 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/46d3ea3f-186d-43f3-9bdd-603ade1eb396
+
 
 Integartions 
 
-Simply visit the (https://lovable.dev/projects/46d3ea3f-186d-43f3-9bdd-603ade1eb396) and start prompting.
 
 Changes made via Lovable will be committed automatically to this repo.
 
