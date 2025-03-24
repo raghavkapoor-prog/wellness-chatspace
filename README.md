@@ -37,6 +37,41 @@ npm i
 npm run dev
 ```
 
+## GitHub Setup Guide
+
+### Setting up the repository:
+
+1. **Connect to GitHub from Lovable**:
+   - In your Lovable project, look for the GitHub icon in the top right corner
+   - Click on it and follow the prompts to connect your GitHub account
+   - Choose to create a new repository or connect to an existing one
+
+2. **Working with your GitHub repository**:
+   - **Clone the repository locally**:
+     ```
+     git clone https://github.com/your-username/brute-strength.git
+     cd brute-strength
+     ```
+   - **Install dependencies**:
+     ```
+     npm install
+     ```
+   - **Run the development server**:
+     ```
+     npm run dev
+     ```
+   - **Make changes, commit and push**:
+     ```
+     git add .
+     git commit -m "Your commit message"
+     git push origin main
+     ```
+
+3. **GitHub Collaboration**:
+   - Invite team members as collaborators in GitHub repository settings
+   - Use branches for features and pull requests for code reviews
+   - Set up GitHub Actions for CI/CD if needed (check `.github/workflows` directory)
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).
