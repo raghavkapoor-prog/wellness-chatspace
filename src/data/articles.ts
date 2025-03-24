@@ -24,7 +24,7 @@ export const articles: Article[] = [
     readingTime: '8 min read',
     date: 'Jun 12, 2023',
     authorName: 'Dr. Sarah Johnson',
-    authorAvatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+    authorAvatar: 'https://randomuser.me/api/portraits/women/44.jpg'
   },
   {
     id: '2',
@@ -35,7 +35,7 @@ export const articles: Article[] = [
     readingTime: '6 min read',
     date: 'May 28, 2023',
     authorName: 'Michael Chen',
-    authorAvatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+    authorAvatar: 'https://randomuser.me/api/portraits/men/32.jpg'
   },
   {
     id: '3',
@@ -46,7 +46,7 @@ export const articles: Article[] = [
     readingTime: '7 min read',
     date: 'May 15, 2023',
     authorName: 'Emily Rodriguez',
-    authorAvatar: 'https://randomuser.me/api/portraits/women/63.jpg',
+    authorAvatar: 'https://randomuser.me/api/portraits/women/63.jpg'
   },
   {
     id: '4',
@@ -57,7 +57,7 @@ export const articles: Article[] = [
     readingTime: '5 min read',
     date: 'Apr 30, 2023',
     authorName: 'James Wilson',
-    authorAvatar: 'https://randomuser.me/api/portraits/men/52.jpg',
+    authorAvatar: 'https://randomuser.me/api/portraits/men/52.jpg'
   },
   {
     id: '5',
@@ -68,7 +68,7 @@ export const articles: Article[] = [
     readingTime: '9 min read',
     date: 'Apr 18, 2023',
     authorName: 'Dr. Lisa Patel',
-    authorAvatar: 'https://randomuser.me/api/portraits/women/22.jpg',
+    authorAvatar: 'https://randomuser.me/api/portraits/women/22.jpg'
   },
   {
     id: '6',
@@ -79,7 +79,7 @@ export const articles: Article[] = [
     readingTime: '6 min read',
     date: 'Apr 5, 2023',
     authorName: 'Robert Taylor',
-    authorAvatar: 'https://randomuser.me/api/portraits/men/67.jpg',
+    authorAvatar: 'https://randomuser.me/api/portraits/men/67.jpg'
   },
   {
     id: '7',
@@ -90,7 +90,7 @@ export const articles: Article[] = [
     readingTime: '8 min read',
     date: 'Mar 22, 2023',
     authorName: 'Sophia Martinez',
-    authorAvatar: 'https://randomuser.me/api/portraits/women/12.jpg',
+    authorAvatar: 'https://randomuser.me/api/portraits/women/12.jpg'
   },
   {
     id: '8',
@@ -101,7 +101,7 @@ export const articles: Article[] = [
     readingTime: '7 min read',
     date: 'Mar 10, 2023',
     authorName: 'Dr. Jason Brooks',
-    authorAvatar: 'https://randomuser.me/api/portraits/men/22.jpg',
+    authorAvatar: 'https://randomuser.me/api/portraits/men/22.jpg'
   },
   {
     id: '9',
@@ -112,8 +112,8 @@ export const articles: Article[] = [
     readingTime: '10 min read',
     date: 'Feb 28, 2023',
     authorName: 'Alex Thompson',
-    authorAvatar: 'https://randomuser.me/api/portraits/women/32.jpg',
-  },
+    authorAvatar: 'https://randomuser.me/api/portraits/women/32.jpg'
+  }
 ];
 
 export const journeyPosts = [
@@ -122,36 +122,36 @@ export const journeyPosts = [
     title: 'Starting My Fitness Journey: Week 1 Reflections',
     content: 'The first week is always the hardest. Here are my honest thoughts about beginning a new fitness routine and the unexpected challenges I faced.',
     date: 'Jan 15, 2023',
-    imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'j2',
     title: '3 Months In: Celebrating Small Victories',
     content: 'Three months of consistent training has taught me the importance of recognizing small improvements. Here's what I've learned about progress.',
     date: 'Apr 22, 2023',
-    imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'j3',
     title: 'Overcoming My First Plateau: Strategies That Worked',
     content: 'After weeks of stalled progress, I finally broke through my training plateau. These are the adjustments that made the difference.',
     date: 'Jul 10, 2023',
-    imageUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1603287681836-b174ce5074c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'j4',
     title: 'Finding Balance: Integrating Fitness Into Daily Life',
     content: 'The challenge of balancing work, social life, and fitness is real. Here's how I've managed to make training a sustainable part of my routine.',
     date: 'Oct 5, 2023',
-    imageUrl: 'https://images.unsplash.com/photo-1470468969717-61d5d54fd036?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1470468969717-61d5d54fd036?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
   },
   {
     id: 'j5',
     title: 'One Year Transformation: Mental and Physical Changes',
     content: 'Reflecting on a full year of consistent training and nutrition. The physical changes are visible, but the mental transformation has been even more profound.',
     date: 'Jan 18, 2024',
-    imageUrl: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
-  },
+    imageUrl: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80'
+  }
 ];
 
 export const getArticleById = (id: string): Article | undefined => {
