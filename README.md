@@ -5,13 +5,9 @@
 
 **URL**: https://lovable.dev/projects/46d3ea3f-186d-43f3-9bdd-603ade1eb396
 
-## How can I edit this code?
+Integartions 
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/46d3ea3f-186d-43f3-9bdd-603ade1eb396) and start prompting.
+Simply visit the (https://lovable.dev/projects/46d3ea3f-186d-43f3-9bdd-603ade1eb396) and start prompting.
 
 Changes made via Lovable will be committed automatically to this repo.
 
@@ -42,9 +38,7 @@ npm run dev
 ### Setting up the repository:
 
 1. **Connect to GitHub from Lovable**:
-   - In your Lovable project, look for the GitHub icon in the top right corner
-   - Click on it and follow the prompts to connect your GitHub account
-   - Choose to create a new repository or connect to an existing one
+  
 
 2. **Working with your GitHub repository**:
    - **Clone the repository locally**:
@@ -98,8 +92,4 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/46d3ea3f-186d-43f3-9bdd-603ade1eb396) and click on Share -> Publish.
 
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
