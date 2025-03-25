@@ -1,26 +1,42 @@
 
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getArticleById } from '@/utils/articleUtils';
 import { Article } from '@/components/ui/ArticleCard';
-import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { toast } from 'sonner';
 
 const ArticleDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const fetchArticle = () => {
+    setLoading(true);
+    if (id) {
+      const fetchedArticle = getArticleById(id);
+      if (fetchedArticle) {
+        setArticle(fetchedArticle);
+        setLoading(false);
+      } else {
+        toast.error("Article not found");
+        setLoading(false);
+      }
+    }
+  };
 
   useEffect(() => {
     // Fetch the article by ID when the component mounts
-    if (id) {
-      const fetchedArticle = getArticleById(id);
-      setArticle(fetchedArticle || null);
-      setLoading(false);
-    }
+    fetchArticle();
   }, [id]);
+
+  const handleRefresh = () => {
+    fetchArticle();
+    toast.success("Article refreshed");
+  };
 
   if (loading) {
     return (
@@ -61,12 +77,22 @@ const ArticleDetail = () => {
         <div className="absolute inset-0 bg-black/60">
           <div className="container-custom h-full flex flex-col justify-end pb-10">
             <div className="max-w-3xl text-white">
-              <Link to="/articles">
-                <Button variant="outline" className="mb-6 bg-transparent border-white/30 text-white hover:bg-white/10">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Articles
+              <div className="flex gap-2 mb-6">
+                <Link to="/articles">
+                  <Button variant="outline" className="bg-transparent border-white/30 text-white hover:bg-white/10">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back to Articles
+                  </Button>
+                </Link>
+                <Button 
+                  variant="outline" 
+                  className="bg-transparent border-white/30 text-white hover:bg-white/10"
+                  onClick={handleRefresh}
+                >
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  Refresh
                 </Button>
-              </Link>
+              </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">{article.title}</h1>
               <div className="flex items-center mb-2">
                 <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/80 text-white mr-4">

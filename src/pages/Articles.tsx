@@ -2,18 +2,30 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
+import { Plus, RefreshCw } from 'lucide-react';
 import Hero from '@/components/ui/Hero';
 import ArticleCard from '@/components/ui/ArticleCard';
 import { getAllArticles } from '@/utils/articleUtils';
+import { toast } from 'sonner';
 
 const Articles = () => {
   const [articles, setArticles] = useState(getAllArticles());
+  const [isLoading, setIsLoading] = useState(false);
 
   // Update articles when the component mounts (to get the latest)
   useEffect(() => {
-    setArticles(getAllArticles());
+    refreshArticles();
   }, []);
+
+  const refreshArticles = () => {
+    setIsLoading(true);
+    // Small delay to simulate fetching
+    setTimeout(() => {
+      setArticles(getAllArticles());
+      setIsLoading(false);
+      toast.success('Articles refreshed successfully');
+    }, 300);
+  };
 
   // Categories with counts
   const categories = [...new Set(articles.map(article => article.category))];
@@ -56,22 +68,42 @@ const Articles = () => {
               ))}
             </div>
             
-            <Link to="/add-article">
-              <Button>
-                <Plus className="mr-2 h-4 w-4" />
-                Create Article
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                onClick={refreshArticles} 
+                disabled={isLoading}
+              >
+                <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+                Refresh
               </Button>
-            </Link>
+              <Link to="/add-article">
+                <Button>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Create Article
+                </Button>
+              </Link>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredArticles.map(article => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
-            
-            {filteredArticles.length === 0 && (
+            {filteredArticles.length > 0 ? (
+              filteredArticles.map(article => (
+                <ArticleCard key={article.id} article={article} />
+              ))
+            ) : (
               <div className="col-span-full text-center py-12">
-                <p className="text-muted-foreground">No articles found in this category.</p>
+                <p className="text-muted-foreground mb-4">
+                  {activeCategory 
+                    ? `No articles found in the "${activeCategory}" category.` 
+                    : "No articles found. Create your first article!"}
+                </p>
+                <Link to="/add-article">
+                  <Button>
+                    <Plus className="mr-2 h-4 w-4" />
+                    Create Article
+                  </Button>
+                </Link>
               </div>
             )}
           </div>

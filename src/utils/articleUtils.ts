@@ -1,5 +1,5 @@
 
-import { articles, journeyPosts } from '@/data/articles';
+import { articles as initialArticles, journeyPosts as initialJourneyPosts } from '@/data/articles';
 import { Article } from '@/components/ui/ArticleCard';
 
 // Type for journey posts
@@ -11,10 +11,20 @@ export interface JourneyPost {
   imageUrl: string;
 }
 
+// Initialize from localStorage or default data
+const initializeArticles = (): Article[] => {
+  const storedArticles = localStorage.getItem('brute_strength_articles');
+  return storedArticles ? JSON.parse(storedArticles) : [...initialArticles];
+};
+
+const initializeJourneyPosts = (): JourneyPost[] => {
+  const storedPosts = localStorage.getItem('brute_strength_journeyPosts');
+  return storedPosts ? JSON.parse(storedPosts) : [...initialJourneyPosts];
+};
+
 // In-memory storage for new articles and journey posts
-// In a real app, this would be stored in a database or file system
-let localArticles = [...articles];
-let localJourneyPosts = [...journeyPosts];
+let localArticles = initializeArticles();
+let localJourneyPosts = initializeJourneyPosts();
 
 // Save a new article
 export const saveArticle = async (article: Article): Promise<void> => {
@@ -23,6 +33,9 @@ export const saveArticle = async (article: Article): Promise<void> => {
   
   // Add to local storage
   localArticles = [article, ...localArticles];
+  
+  // Persist to localStorage
+  localStorage.setItem('brute_strength_articles', JSON.stringify(localArticles));
   
   // Log the updated articles list
   console.log('Article saved:', article);
@@ -38,6 +51,9 @@ export const saveJourneyPost = async (post: JourneyPost): Promise<void> => {
   
   // Add to local storage
   localJourneyPosts = [post, ...localJourneyPosts];
+  
+  // Persist to localStorage
+  localStorage.setItem('brute_strength_journeyPosts', JSON.stringify(localJourneyPosts));
   
   // Log the updated journey posts list
   console.log('Journey post saved:', post);
