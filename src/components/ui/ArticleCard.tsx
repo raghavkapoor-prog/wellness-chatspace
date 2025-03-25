@@ -7,6 +7,7 @@ export interface Article {
   id: string;
   title: string;
   excerpt: string;
+  content: string; // Add content property to the interface
   category: string;
   imageUrl: string;
   readingTime: string;
