@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import Hero from '@/components/ui/Hero';
 import { saveArticle } from '@/utils/articleUtils';
 import { FileUploader } from '@/components/ui/FileUploader';
+import { Article } from '@/components/ui/ArticleCard';
 
 const formSchema = z.object({
   title: z.string().min(5, { message: 'Title must be at least 5 characters' }),
@@ -44,9 +45,14 @@ const AddArticle = () => {
     try {
       setIsSubmitting(true);
       
-      const articleData = {
-        ...data,
+      // Create a properly typed article object by explicitly constructing it
+      const articleData: Article = {
         id: Date.now().toString(),
+        title: data.title,
+        excerpt: data.excerpt,
+        content: data.content,
+        category: data.category,
+        authorName: data.authorName,
         imageUrl: imageUrl || 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
         authorAvatar: authorAvatar || 'https://randomuser.me/api/portraits/men/32.jpg',
         readingTime: `${Math.ceil(data.content.length / 1000)} min read`,

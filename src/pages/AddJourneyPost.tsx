@@ -11,7 +11,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from '@/hooks/use-toast';
 import Hero from '@/components/ui/Hero';
-import { saveJourneyPost } from '@/utils/articleUtils';
+import { saveJourneyPost, JourneyPost } from '@/utils/articleUtils';
 import { FileUploader } from '@/components/ui/FileUploader';
 
 const formSchema = z.object({
@@ -37,9 +37,11 @@ const AddJourneyPost = () => {
     try {
       setIsSubmitting(true);
       
-      const journeyData = {
-        ...data,
+      // Create a properly typed journey post object
+      const journeyData: JourneyPost = {
         id: `j${Date.now().toString()}`,
+        title: data.title,
+        content: data.content,
         imageUrl: imageUrl || 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
         date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
       };
