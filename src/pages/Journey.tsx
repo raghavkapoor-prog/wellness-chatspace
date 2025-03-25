@@ -1,10 +1,12 @@
 
-import React from 'react';
-import Hero from '@/components/ui/Hero';
-import { journeyPosts } from '@/data/articles';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import Hero from '@/components/ui/Hero';
+import { getAllJourneyPosts } from '@/utils/articleUtils';
 
-const JourneyCard = ({ post }: { post: typeof journeyPosts[0] }) => {
+const JourneyCard = ({ post }: { post: ReturnType<typeof getAllJourneyPosts>[0] }) => {
   return (
     <div className="card-hover bg-card text-card-foreground rounded-2xl overflow-hidden border">
       <div className="relative aspect-[16/9]">
@@ -30,6 +32,13 @@ const JourneyCard = ({ post }: { post: typeof journeyPosts[0] }) => {
 };
 
 const Journey = () => {
+  const [journeyPosts, setJourneyPosts] = useState(getAllJourneyPosts());
+
+  // Update journey posts when the component mounts (to get the latest)
+  useEffect(() => {
+    setJourneyPosts(getAllJourneyPosts());
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Hero 
@@ -40,6 +49,16 @@ const Journey = () => {
       
       <section className="py-16">
         <div className="container-custom">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-semibold">Journey Posts</h2>
+            <Link to="/add-journey">
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                Add Journey Post
+              </Button>
+            </Link>
+          </div>
+          
           <div className="max-w-3xl mx-auto bg-card rounded-2xl p-8 mb-16 neo-blur">
             <h2 className="text-2xl font-semibold mb-4">About This Journey</h2>
             <p className="text-muted-foreground mb-4">

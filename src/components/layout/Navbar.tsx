@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import ChatButton from '../chat/ChatButton';
+import { Plus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -50,6 +52,21 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
+          
+          <div className="flex space-x-2">
+            <Link to="/add-article">
+              <Button variant="outline" size="sm" className="flex items-center">
+                <Plus className="h-4 w-4 mr-1" />
+                Article
+              </Button>
+            </Link>
+            <Link to="/add-journey">
+              <Button variant="outline" size="sm" className="flex items-center">
+                <Plus className="h-4 w-4 mr-1" />
+                Journey
+              </Button>
+            </Link>
+          </div>
         </nav>
         
         <div className="flex items-center space-x-4">

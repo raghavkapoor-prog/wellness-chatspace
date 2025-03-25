@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Articles from "./pages/Articles";
 import Journey from "./pages/Journey";
+import AddArticle from "./pages/AddArticle";
+import AddJourneyPost from "./pages/AddJourneyPost";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -24,7 +26,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/articles" element={<Articles />} />
+            <Route path="/add-article" element={<AddArticle />} />
             <Route path="/journey" element={<Journey />} />
+            <Route path="/add-journey" element={<AddJourneyPost />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
