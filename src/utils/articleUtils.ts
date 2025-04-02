@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { articles as initialArticles, journeyPosts as initialJourneyPosts } from '@/data/articles';
 import { Article } from '@/components/ui/ArticleCard';
 import { toast } from 'sonner';
+import { ArticleTable, JourneyPostTable, ArticleLikeTable, JourneyLikeTable } from './databaseTypes';
 
 // Type for journey posts
 export interface JourneyPost {
@@ -15,7 +16,7 @@ export interface JourneyPost {
 }
 
 // Map database column names to frontend property names
-const mapDbArticleToArticle = (dbArticle: any): Article => {
+const mapDbArticleToArticle = (dbArticle: ArticleTable): Article => {
   return {
     id: dbArticle.id,
     title: dbArticle.title,
@@ -26,7 +27,7 @@ const mapDbArticleToArticle = (dbArticle: any): Article => {
     authorName: dbArticle.author_name,
     authorAvatar: dbArticle.author_avatar || '',
     readingTime: dbArticle.reading_time,
-    date: new Date(dbArticle.created_at).toLocaleDateString('en-US', { 
+    date: new Date(dbArticle.created_at || '').toLocaleDateString('en-US', { 
       year: 'numeric', 
       month: 'short', 
       day: 'numeric' 
@@ -35,13 +36,13 @@ const mapDbArticleToArticle = (dbArticle: any): Article => {
   };
 };
 
-const mapDbJourneyToJourney = (dbJourney: any): JourneyPost => {
+const mapDbJourneyToJourney = (dbJourney: JourneyPostTable): JourneyPost => {
   return {
     id: dbJourney.id,
     title: dbJourney.title,
     content: dbJourney.content,
     imageUrl: dbJourney.image_url || '',
-    date: new Date(dbJourney.created_at).toLocaleDateString('en-US', { 
+    date: new Date(dbJourney.created_at || '').toLocaleDateString('en-US', { 
       year: 'numeric', 
       month: 'short', 
       day: 'numeric' 
@@ -78,7 +79,7 @@ export const saveArticle = async (article: Omit<Article, 'id' | 'likes'>): Promi
     }
     
     console.log('Article saved:', data);
-    return data.id;
+    return data?.id;
   } catch (error) {
     console.error('Error in saveArticle:', error);
     toast.error('Failed to save article');
@@ -109,7 +110,7 @@ export const saveJourneyPost = async (post: Omit<JourneyPost, 'id' | 'likes'>): 
     }
     
     console.log('Journey post saved:', data);
-    return data.id;
+    return data?.id;
   } catch (error) {
     console.error('Error in saveJourneyPost:', error);
     toast.error('Failed to save journey post');
@@ -238,7 +239,7 @@ export const getArticleById = async (id: string): Promise<Article | null> => {
       return null;
     }
     
-    return mapDbArticleToArticle(data);
+    return mapDbArticleToArticle(data as ArticleTable);
   } catch (error) {
     console.error('Error in getArticleById:', error);
     return null;
@@ -259,7 +260,7 @@ export const getJourneyPostById = async (id: string): Promise<JourneyPost | null
       return null;
     }
     
-    return mapDbJourneyToJourney(data);
+    return mapDbJourneyToJourney(data as JourneyPostTable);
   } catch (error) {
     console.error('Error in getJourneyPostById:', error);
     return null;
@@ -309,10 +310,12 @@ export const likeArticle = async (articleId: string): Promise<boolean> => {
         return false;
       }
       
-      // Then increment the article's like count
-      const { error: updateError } = await supabase.rpc('increment_article_likes', { article_id: articleId });
+      // Then increment the article's like count using RPC function
+      const { error: updateError } = await supabase
+        .rpc('increment_article_likes', { article_id: articleId });
       
       if (updateError) {
+        console.error('Error with RPC call:', updateError);
         // Fallback method if RPC is not available
         const { data: article } = await supabase
           .from('articles')
@@ -366,9 +369,11 @@ export const likeJourneyPost = async (journeyId: string): Promise<boolean> => {
       }
       
       // Then increment the journey post's like count
-      const { error: updateError } = await supabase.rpc('increment_journey_likes', { journey_id: journeyId });
+      const { error: updateError } = await supabase
+        .rpc('increment_journey_likes', { journey_id: journeyId });
       
       if (updateError) {
+        console.error('Error with RPC call:', updateError);
         // Fallback method if RPC is not available
         const { data: journey } = await supabase
           .from('journey_posts')

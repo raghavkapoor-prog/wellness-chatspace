@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -7,13 +6,14 @@ export interface Article {
   id: string;
   title: string;
   excerpt: string;
-  content: string; // Add content property to the interface
+  content: string;
   category: string;
   imageUrl: string;
   readingTime: string;
   date: string;
   authorName: string;
   authorAvatar?: string;
+  likes?: number;
 }
 
 interface ArticleCardProps {
