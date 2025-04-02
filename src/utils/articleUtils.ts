@@ -295,14 +295,14 @@ export const likeArticle = async (articleId: string): Promise<boolean> => {
       .from('article_likes')
       .select('*')
       .eq('article_id', articleId)
-      .is('user_id', null);
+      .is('user_id', null) as any;
 
     // If not already liked anonymously, add a like
     if (!existingLikes || existingLikes.length === 0) {
       // First insert a like record
       const { error: likeError } = await supabase
         .from('article_likes')
-        .insert({ article_id: articleId, user_id: null });
+        .insert({ article_id: articleId, user_id: null }) as any;
       
       if (likeError) {
         console.error('Error adding like:', likeError);
@@ -311,7 +311,7 @@ export const likeArticle = async (articleId: string): Promise<boolean> => {
       
       // Then increment the article's like count using RPC function
       const { error: updateError } = await supabase
-        .rpc('increment_article_likes', { article_id: articleId } as any);
+        .rpc('increment_article_likes', { article_id: articleId }) as unknown as { error: any };
       
       if (updateError) {
         console.error('Error with RPC call:', updateError);
@@ -320,14 +320,14 @@ export const likeArticle = async (articleId: string): Promise<boolean> => {
           .from('articles')
           .select('likes')
           .eq('id', articleId)
-          .single();
+          .single() as any;
         
         const newLikes = (article?.likes || 0) + 1;
         
         const { error } = await supabase
           .from('articles')
           .update({ likes: newLikes })
-          .eq('id', articleId);
+          .eq('id', articleId) as any;
           
         if (error) {
           console.error('Error updating article likes:', error);
@@ -353,14 +353,14 @@ export const likeJourneyPost = async (journeyId: string): Promise<boolean> => {
       .from('journey_likes')
       .select('*')
       .eq('journey_id', journeyId)
-      .is('user_id', null);
+      .is('user_id', null) as any;
 
     // If not already liked anonymously, add a like
     if (!existingLikes || existingLikes.length === 0) {
       // First insert a like record
       const { error: likeError } = await supabase
         .from('journey_likes')
-        .insert({ journey_id: journeyId, user_id: null });
+        .insert({ journey_id: journeyId, user_id: null }) as any;
       
       if (likeError) {
         console.error('Error adding like:', likeError);
@@ -369,7 +369,7 @@ export const likeJourneyPost = async (journeyId: string): Promise<boolean> => {
       
       // Then increment the journey post's like count
       const { error: updateError } = await supabase
-        .rpc('increment_journey_likes', { journey_id: journeyId } as any);
+        .rpc('increment_journey_likes', { journey_id: journeyId }) as unknown as { error: any };
       
       if (updateError) {
         console.error('Error with RPC call:', updateError);
@@ -378,14 +378,14 @@ export const likeJourneyPost = async (journeyId: string): Promise<boolean> => {
           .from('journey_posts')
           .select('likes')
           .eq('id', journeyId)
-          .single();
+          .single() as any;
         
         const newLikes = (journey?.likes || 0) + 1;
         
         const { error } = await supabase
           .from('journey_posts')
           .update({ likes: newLikes })
-          .eq('id', journeyId);
+          .eq('id', journeyId) as any;
           
         if (error) {
           console.error('Error updating journey likes:', error);
