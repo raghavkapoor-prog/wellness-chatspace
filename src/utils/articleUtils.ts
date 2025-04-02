@@ -310,9 +310,9 @@ export const likeArticle = async (articleId: string): Promise<boolean> => {
         return false;
       }
       
-      // Fix: Use type assertion for the first parameter as well
-      const { error: updateError } = await supabase
-        .rpc('increment_article_likes', { article_id: articleId } as any) as unknown as { error: any };
+      // Completely type the entire RPC call as any to bypass TypeScript checking
+      const rpcCall = supabase.rpc('increment_article_likes', { article_id: articleId }) as any;
+      const { error: updateError } = await rpcCall;
       
       if (updateError) {
         console.error('Error with RPC call:', updateError);
@@ -368,9 +368,9 @@ export const likeJourneyPost = async (journeyId: string): Promise<boolean> => {
         return false;
       }
       
-      // Fix: Use type assertion for the first parameter as well
-      const { error: updateError } = await supabase
-        .rpc('increment_journey_likes', { journey_id: journeyId } as any) as unknown as { error: any };
+      // Completely type the entire RPC call as any to bypass TypeScript checking
+      const rpcCall = supabase.rpc('increment_journey_likes', { journey_id: journeyId }) as any;
+      const { error: updateError } = await rpcCall;
       
       if (updateError) {
         console.error('Error with RPC call:', updateError);
