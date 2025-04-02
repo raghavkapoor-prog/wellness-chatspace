@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 import { articles as initialArticles, journeyPosts as initialJourneyPosts } from '@/data/articles';
 import { Article } from '@/components/ui/ArticleCard';
@@ -312,7 +311,7 @@ export const likeArticle = async (articleId: string): Promise<boolean> => {
       
       // Then increment the article's like count using RPC function
       const { error: updateError } = await supabase
-        .rpc('increment_article_likes', { article_id: articleId });
+        .rpc('increment_article_likes', { article_id: articleId } as any);
       
       if (updateError) {
         console.error('Error with RPC call:', updateError);
@@ -370,7 +369,7 @@ export const likeJourneyPost = async (journeyId: string): Promise<boolean> => {
       
       // Then increment the journey post's like count
       const { error: updateError } = await supabase
-        .rpc('increment_journey_likes', { journey_id: journeyId });
+        .rpc('increment_journey_likes', { journey_id: journeyId } as any);
       
       if (updateError) {
         console.error('Error with RPC call:', updateError);
