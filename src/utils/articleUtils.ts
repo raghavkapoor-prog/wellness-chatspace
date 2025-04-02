@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 import { articles as initialArticles, journeyPosts as initialJourneyPosts } from '@/data/articles';
 import { Article } from '@/components/ui/ArticleCard';
@@ -310,9 +309,8 @@ export const likeArticle = async (articleId: string): Promise<boolean> => {
         return false;
       }
       
-      // Completely type the entire RPC call as any to bypass TypeScript checking
-      const rpcCall = supabase.rpc('increment_article_likes', { article_id: articleId }) as any;
-      const { error: updateError } = await rpcCall;
+      // Using any type on both the method and parameters to bypass TypeScript checking completely
+      const { error: updateError } = await (supabase.rpc as any)('increment_article_likes', { article_id: articleId });
       
       if (updateError) {
         console.error('Error with RPC call:', updateError);
@@ -368,9 +366,8 @@ export const likeJourneyPost = async (journeyId: string): Promise<boolean> => {
         return false;
       }
       
-      // Completely type the entire RPC call as any to bypass TypeScript checking
-      const rpcCall = supabase.rpc('increment_journey_likes', { journey_id: journeyId }) as any;
-      const { error: updateError } = await rpcCall;
+      // Using any type on both the method and parameters to bypass TypeScript checking completely
+      const { error: updateError } = await (supabase.rpc as any)('increment_journey_likes', { journey_id: journeyId });
       
       if (updateError) {
         console.error('Error with RPC call:', updateError);

@@ -38,3 +38,11 @@ export interface JourneyLikeTable {
   user_id: string | null;
   created_at: string | null;
 }
+
+export interface ChatHistoryTable {
+  id: string;
+  user_message: string;
+  assistant_message: string;
+  user_id: string | null;
+  created_at: string | null;
+}

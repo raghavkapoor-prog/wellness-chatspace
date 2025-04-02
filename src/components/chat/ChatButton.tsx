@@ -15,12 +15,12 @@ const ChatButton = () => {
     <>
       <Button
         onClick={toggleChat}
-        variant="outline"
+        variant="default"
         size="icon"
-        className="rounded-full h-10 w-10 bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-all"
-        aria-label="Open chat assistant"
+        className="fixed bottom-4 right-4 z-50 rounded-full h-12 w-12 shadow-lg bg-primary hover:bg-primary/90 transition-all"
+        aria-label="Open fitness assistant"
       >
-        <MessageCircle className="h-5 w-5" />
+        <MessageCircle className="h-6 w-6" />
       </Button>
       
       <ChatWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
