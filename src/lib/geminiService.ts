@@ -74,14 +74,7 @@ export const getGeminiResponse = async (prompt: string): Promise<string> => {
   } catch (error) {
     console.error('Error getting Gemini response:', error);
     
-    // Fallback responses for when the API fails
-    const fallbackResponses = [
-      "I'm currently having trouble connecting to my knowledge base. For fitness advice, focus on consistency with both strength training and cardio, ensure adequate protein intake (about 1.6-2.2g per kg of bodyweight), and prioritize recovery through proper sleep and stress management.",
-      "Sorry, I couldn't retrieve specific information right now. Generally, sustainable fitness progress comes from progressive overload in training, nutritional consistency, and lifestyle habits that support your goals.",
-      "I apologize for the technical difficulties. In the meantime, remember that evidence-based fitness approaches typically include regular resistance training, cardiovascular exercise, proper nutrition with adequate protein, and sufficient recovery time."
-    ];
-    
-    // Return a random fallback response
-    return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+    // Return direct fitness guidance message instead of a varied fallback
+    return "I apologize for the technical difficulties. In the meantime, remember that evidence-based fitness approaches typically include regular resistance training, cardiovascular exercise, proper nutrition with adequate protein, and sufficient recovery time.";
   }
 };
