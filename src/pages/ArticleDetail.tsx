@@ -1,54 +1,61 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, RefreshCw } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getArticleById } from '@/utils/articleUtils';
-import { Article } from '@/components/ui/ArticleCard';
+import { getArticleById, likeArticle } from '@/utils/articleUtils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { toast } from 'sonner';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const ArticleDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [article, setArticle] = useState<Article | null>(null);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  
+  // Fetch article using React Query
+  const { 
+    data: article, 
+    isLoading, 
+    isError,
+    refetch 
+  } = useQuery({
+    queryKey: ['article', id],
+    queryFn: () => id ? getArticleById(id) : null,
+    enabled: !!id,
+  });
 
-  const fetchArticle = () => {
-    setLoading(true);
-    if (id) {
-      const fetchedArticle = getArticleById(id);
-      if (fetchedArticle) {
-        setArticle(fetchedArticle);
-        setLoading(false);
-      } else {
-        toast.error("Article not found");
-        setLoading(false);
-      }
+  const handleLikeArticle = async () => {
+    if (!id) return;
+    
+    const success = await likeArticle(id);
+    if (success) {
+      // Invalidate article query to refetch with updated likes
+      queryClient.invalidateQueries({ queryKey: ['article', id] });
+      queryClient.invalidateQueries({ queryKey: ['articles'] });
+      toast.success('Article liked!');
+    } else {
+      toast.info('You already liked this article');
     }
   };
 
-  useEffect(() => {
-    // Fetch the article by ID when the component mounts
-    fetchArticle();
-  }, [id]);
-
   const handleRefresh = () => {
-    fetchArticle();
+    refetch();
     toast.success("Article refreshed");
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="container-custom py-16">
         <div className="flex justify-center items-center min-h-[50vh]">
+          <RefreshCw className="h-8 w-8 animate-spin mr-2 text-primary" />
           <p className="text-xl text-muted-foreground">Loading article...</p>
         </div>
       </div>
     );
   }
 
-  if (!article) {
+  if (isError || !article) {
     return (
       <div className="container-custom py-16">
         <div className="flex flex-col justify-center items-center min-h-[50vh]">
@@ -91,6 +98,14 @@ const ArticleDetail = () => {
                 >
                   <RefreshCw className="mr-2 h-4 w-4" />
                   Refresh
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="bg-transparent border-white/30 text-white hover:bg-white/10"
+                  onClick={handleLikeArticle}
+                >
+                  <Heart className="mr-2 h-4 w-4" />
+                  {article.likes || 0} Likes
                 </Button>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">{article.title}</h1>

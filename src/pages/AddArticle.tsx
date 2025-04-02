@@ -12,8 +12,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useToast } from '@/hooks/use-toast';
 import Hero from '@/components/ui/Hero';
 import { saveArticle } from '@/utils/articleUtils';
-import { FileUploader } from '@/components/ui/FileUploader';
+import { SupabaseFileUploader } from '@/components/ui/SupabaseFileUploader';
 import { Article } from '@/components/ui/ArticleCard';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
   title: z.string().min(5, { message: 'Title must be at least 5 characters' }),
@@ -27,8 +29,9 @@ const AddArticle = () => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [authorAvatar, setAuthorAvatar] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
+  const { toast: useToastHook } = useToast();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,9 +48,13 @@ const AddArticle = () => {
     try {
       setIsSubmitting(true);
       
-      // Create a properly typed article object by explicitly constructing it
-      const articleData: Article = {
-        id: Date.now().toString(),
+      // Calculate reading time based on content length
+      const wordsPerMinute = 200;
+      const wordCount = data.content.trim().split(/\s+/).length;
+      const readingTime = `${Math.max(1, Math.ceil(wordCount / wordsPerMinute))} min read`;
+      
+      // Create article object using the form data
+      const articleData = {
         title: data.title,
         excerpt: data.excerpt,
         content: data.content,
@@ -55,25 +62,34 @@ const AddArticle = () => {
         authorName: data.authorName,
         imageUrl: imageUrl || 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80',
         authorAvatar: authorAvatar || 'https://randomuser.me/api/portraits/men/32.jpg',
-        readingTime: `${Math.ceil(data.content.length / 1000)} min read`,
+        readingTime: readingTime,
         date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
       };
       
-      await saveArticle(articleData);
+      const articleId = await saveArticle(articleData);
       
-      toast({
-        title: 'Article Published!',
-        description: 'Your article has been successfully published.',
-      });
-      
-      navigate('/articles');
+      if (articleId) {
+        // Invalidate articles query to refetch the latest data
+        queryClient.invalidateQueries({ queryKey: ['articles'] });
+        
+        useToastHook({
+          title: 'Article Published!',
+          description: 'Your article has been successfully published.',
+        });
+        
+        toast.success('Article published successfully');
+        navigate('/articles');
+      } else {
+        toast.error('Failed to publish article');
+      }
     } catch (error) {
       console.error('Error saving article:', error);
-      toast({
+      useToastHook({
         title: 'Error',
         description: 'Failed to publish article. Please try again.',
         variant: 'destructive',
       });
+      toast.error('Failed to publish article');
     } finally {
       setIsSubmitting(false);
     }
@@ -161,19 +177,21 @@ const AddArticle = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <FormLabel>Featured Image</FormLabel>
-                      <FileUploader 
+                      <SupabaseFileUploader 
                         onFileUpload={(url) => setImageUrl(url)}
                         accept="image/*"
                         previewUrl={imageUrl}
+                        bucketName="article_images"
                       />
                     </div>
                     
                     <div>
                       <FormLabel>Author Avatar</FormLabel>
-                      <FileUploader 
+                      <SupabaseFileUploader 
                         onFileUpload={(url) => setAuthorAvatar(url)}
                         accept="image/*"
                         previewUrl={authorAvatar}
+                        bucketName="article_images"
                       />
                     </div>
                   </div>
