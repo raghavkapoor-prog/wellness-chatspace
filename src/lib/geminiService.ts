@@ -6,7 +6,7 @@ export const getGeminiResponse = async (prompt: string): Promise<string> => {
   console.log('Prompt sent to Gemini:', prompt);
   
   try {
-    const apiKey = 'AIzaSyB6AIyXA6VMlo_oR5ZmEfwVxhX7YpVczMI';
+    const apiKey = 'AIzaSyBTX3wPfkDbwGBPzyvT1uq3MZKbmafq4lY';
     const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
     
     const response = await fetch(`${url}?key=${apiKey}`, {
